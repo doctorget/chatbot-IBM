@@ -1,3 +1,4 @@
+const { response } = require('express');
 const AssistantV2 = require('ibm-watson/assistant/v2');
 const { IamAuthenticator } = require('ibm-watson/auth');
 
@@ -10,7 +11,7 @@ const assistant = new AssistantV2({
     disableSslVerification: true,
 });
 
-const interaction = (req, res) => {
+const interaction = async (req, res) => {
 
     var textIn = '';
 
@@ -19,7 +20,7 @@ const interaction = (req, res) => {
     }
 
     var payload = {
-        assistantId: assistantId,
+        assistantId: process.env.ASSISTANT_ID,
         sessionId: req.body.session_id,
         input: {
             message_type: 'text',
@@ -27,22 +28,23 @@ const interaction = (req, res) => {
         },
     };
 
-    assistant.message(payload, function (err, data) {
+    await assistant.message(payload, function (err, data) {
         if (err) {
             const status = err.code !== undefined && err.code > 0 ? err.code : 500;
             return res.status(status).json(err);
         }
 
-        return res.json(data);
+        response =  res.json(data);
     });
+    return response
 }
 
 const handler = async (req, res, next) => {
     try {
 
         result = await interaction(req, res)
-
-        return res.status(200).json({ "message": "API funcionando caralho" });
+        console.log(result)
+        return res.status(200).json(result);
 
     } catch (error) {
         return next(error, req, res);
