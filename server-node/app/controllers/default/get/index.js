@@ -1,15 +1,5 @@
 
-const AssistantV2 = require('ibm-watson/assistant/v2');
-const { IamAuthenticator } = require('ibm-watson/auth');
-
-const assistant = new AssistantV2({
-    version: '2020-04-01',
-    authenticator: new IamAuthenticator({
-        apikey: process.env.ASSISTANT_IAM_APIKEY,
-    }),
-    serviceUrl: process.env.ASSISTANT_URL,
-    disableSslVerification: true,
-});
+const { assistant } = require('../../../config/assistant');
 
 const create = (req, res) => {
     assistant.createSession(
@@ -29,7 +19,7 @@ const handler = async (req, res, next) => {
 
         result = await create(req, res)
 
-        return res.status(200).json({ "message": "API funcionando caralho" });
+        return res.status(200).json(result);
 
     } catch (error) {
         return next(error, req, res);
