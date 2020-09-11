@@ -4,9 +4,9 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 const assistant = new AssistantV2({
     version: '2020-04-01',
     authenticator: new IamAuthenticator({
-        apikey: 'jPhCZzn1Ilx7dDXspdV6SwL0iv3AD009XQPCqpdVTwmr',
+        apikey: process.env.ASSISTANT_IAM_APIKEY,
     }),
-    serviceUrl: 'https://gateway.watsonplatform.net/assistant/api',
+    serviceUrl: process.env.ASSISTANT_URL,
     disableSslVerification: true,
 });
 
