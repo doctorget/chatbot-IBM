@@ -1,0 +1,19 @@
+{
+  "name": "server-node",
+  "version": "1.0.0",
+  "description": "A NodeJs API connection with Watson",
+  "main": "index.js",
+  "scripts": {
+    "start": "run_server.bat",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "consign": "^0.1.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "ibm-watson": "^5.7.0",
+    "nodemon": "^2.0.4"
+  }
+}
